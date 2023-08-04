@@ -1,57 +1,41 @@
 $(function(){
-	/*
-	var frase = 'lucas@hotmail.com';
 
-	var verifica = frase.match(/^(.*?)(@)(.*?)$/);
-
-
-	if(verifica != null){
-		console.log("encontramos algo ");
-		console.log(verifica[1]);
-		console.log(verifica[2]);
-		console.log(verifica[3]);
-	}else{
-		console.log("nao encontramos nada");
-	}
-	*/
-
-	verificarClickfechar();
+	verificarClickFechar();
 	abrirJanela();
 
 	function abrirJanela(){
-		 $('.btn').click(function(e){
-		 	e.stopPropagation();
+		$('.btn').click(function(e){
+			e.stopPropagation();
 			$('.bg').fadeIn();	
-	 }); 
+		}); 
 	}
-	function verificarClickfechar(){
-		
-		var el = $('body,.close');
 
-		el.click(function(){
+	function verificarClickFechar(){
+		var elementos = $('body, .close');
 
+		elementos.click(function(){
 			$('.bg').fadeOut();
 		});
-			$('.form').click(function(e){
-				e.stopPropagation();
-			});
+
+		$('.form').click(function(e){
+			e.stopPropagation();
+		});
 	}
 
-
-	$('form#form1').submit(function(e){
+	$('form#formulario').submit(function(e){
 		e.preventDefault();
-		var nome = $('input[name=nome]').val();
-		var telefone = $('input[name=telefone]').val();
-		var email = $('input[name=email]').val();
+		var nomeUsuario = $('input[name=nome]').val();
+		var telefoneUsuario = $('input[name=telefone]').val();
+		var emailUsuario = $('input[name=email]').val();
 
 		// contando a quantidade de espaços e os respectivos valores.
-		var amount = nome.split(' ').length;
-		var splitStr = nome.split(' ')	
-		
-		if(amount >= 2){
-			for(var i = 0; i < amount; i++){
-				if(splitStr[i].match(/^[A-Z]{1}[a-z]{1,}$/)){
-					
+		var quantidadeEspacos = nomeUsuario.split(' ').length;
+		var partesNome = nomeUsuario.split(' ');
+
+		if(quantidadeEspacos >= 2){
+			for(var i = 0; i < quantidadeEspacos; i++){
+				if(partesNome[i].match(/^[A-Z]{1}[a-z]{1,}$/)){
+					// Nome válido
 				}else{
 					aplicarCampoInvalido($('input[name=nome]'));
 					return false;
@@ -62,16 +46,14 @@ $(function(){
 		}
 
 		return false;
-		// se chegou ate o final e por que esta tudo okay!
+		// se chegou até o final é porque está tudo ok!
 
-	})
+	});
 
-	function  aplicarCampoInvalido (el){
-		el.css('border','2px solid red');
-		el.data('Invalido','true');
-		el.val('Campo Invalido');
+	function aplicarCampoInvalido(el){
+		el.css('border', '2px solid red');
+		el.data('invalido', 'true');
+		el.val('Campo Inválido');
 	}
 
 });
-
-
